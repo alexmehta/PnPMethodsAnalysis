@@ -200,9 +200,6 @@ def difference_matrix(struct):
         for j in range(len(struct['method'])):
             diff_matrix[i][j] = difference_mean(
                 struct['reconstruct_loc'][i], struct['reconstruct_loc'][j])
-
-            # print("comparing: " , struct['method'][i],struct['method'][j], diff_matrix[i][j])
-    # return struct
     return labels(diff_matrix, struct)
 
 
