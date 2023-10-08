@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="ng-csp" data-placeholder-focus="false" lang="fr" >
+	<head data-requesttoken="FhVMGQMKB3sHKhwfJhozGF8jMj1lfyglHEIvAQcDRjY=:yd8Wua5MBALerRdl8yAD/JdWdzb2Tn/GIvwZf7vbKcw=">
+		<meta charset="utf-8">
+		<title>
+		My CoRe		</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="referrer" content="never">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-itunes-app" content="app-id=543672169">
+		<meta name="theme-color" content="#1d2d44">
+		<link rel="icon" href="/apps/mycore-theme/core/img/favicon.ico">
+		<link rel="apple-touch-icon-precomposed" href="/apps/mycore-theme/core/img/favicon-touch.png">
+		<link rel="mask-icon" sizes="any" href="/core/img/favicon-mask.svg" color="#1d2d44">
+					<link rel="stylesheet" href="/core/css/styles.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/inputs.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/header.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/icons.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/fonts.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/apps.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/global.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/fixes.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/multiselect.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/mobile.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/vendor/jquery-ui/themes/base/jquery-ui.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/jquery-ui-fixes.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/tooltip.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/share.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/apps/files_pdfviewer/css/style.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/apps/files_videoplayer/css/style.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/apps/gallery/css/slideshow.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/apps/gallery/css/gallerybutton.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/apps/user_set_password/css/colorbox.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/apps/user_set_password/css/setpassword.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/core/css/jquery.ocdialog.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+					<link rel="stylesheet" href="/apps/mycore-theme/core/css/styles.css?v=84bdaf6c685a7b3a34b85adfd134d8cc">
+									<script src="/index.php/core/js/oc.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/jquery/dist/jquery.min.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/jquery-migrate/jquery-migrate.min.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/jquery-ui/ui/jquery-ui.custom.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/underscore/underscore.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/moment/min/moment-with-locales.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/handlebars/handlebars.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/blueimp-md5/js/md5.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/bootstrap/js/tooltip.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/backbone/backbone.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/es6-promise/dist/es6-promise.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/davclient.js/lib/client.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/clipboard/dist/clipboard.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/bowser/src/bowser.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/jquery.ocdialog.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/oc-dialogs.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/js.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/l10n.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/l10n/fr.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/mycore-theme/core/l10n/fr.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/octemplate.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/eventsource.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/config.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/search/js/search.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/oc-requesttoken.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/apps.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/mimetype.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/mimetypelist.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/vendor/snapjs/dist/latest/snap.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/oc-backbone.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/placeholder.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/jquery.avatar.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/shareconfigmodel.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/sharemodel.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/sharescollection.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/mycore-theme/core/js/shareitemmodel.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/sharedialogresharerinfoview.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/sharedialoglinklistview.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/sharedialoglinkshareview.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/sharedialogmailview.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/sharedialoglinksocialview.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/sharedialogexpirationview.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/sharedialogshareelistview.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/mycore-theme/core/js/sharedialogview.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/share.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/files_pdfviewer/js/previewplugin.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/files_videoplayer/js/viewer.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/gallery/l10n/fr.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/gallery/js/vendor/bigshot/bigshot-compressed.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/gallery/js/vendor/dompurify/src/purify.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/gallery/js/galleryutility.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/gallery/js/galleryfileaction.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/gallery/js/slideshow.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/gallery/js/slideshowcontrols.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/gallery/js/slideshowzoomablepreview.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/gallery/js/gallerybutton.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/user_set_password/l10n/fr.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/user_set_password/js/jquery.colorbox.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/jquery-showpassword.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/apps/user_set_password/js/setpassword.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/files/fileinfo.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					<script src="/core/js/files/client.js?v=84bdaf6c685a7b3a34b85adfd134d8cc"></script>
+					</head>
+	<body id="body-login">
+		<noscript>
+	<div id="nojavascript">
+		<div>
+			Cette application requiert JavaScript pour fonctionner correctement. Veuillez <a href="http://enable-javascript.com/" target="_blank" rel="noreferrer">activer JavaScript</a> et recharger la page.		</div>
+	</div>
+</noscript>
+		<div class="wrapper">
+			<div class="v-align">
+									<header role="banner">
+						<div id="header">
+							<div class="logo">
+								<h1 class="hidden-visually">
+									Service My CoRe								</h1>
+							</div>
+							<div id="logo-claim" style="display:none;"></div>
+						</div>
+					</header>
+									<ul>
+		<li class="error">
+			Cloud not found<br/>Erreur 404<br/>
+			<p class='hint'></p>
+		</li>
+	</ul>
+<div>
+<p><a target="_blank" class="button" href="https://confluence.cnrs.fr/confluence/display/ODSCORE/Aide+utilisateur">Documentation</a>
+</p>
+</div>
+
+				<div class="push"></div><!-- for sticky footer -->
+			</div>
+		</div>
+		<footer role="contentinfo">
+			<p class="info">
+				<a href="http://ods.cnrs.fr/" target="_blank">CNRS</a> – My CoRe, partage et nomadisme – <a href="http://maintenance-mycore.cnrs.fr/myCoRe_CGU.pdf" target="_blank">CGU</a> – <a href="https://confluence.cnrs.fr/confluence/display/ODSCORE/Aide+utilisateur" target="_blank">Aide</a> – <a href="http://ods.cnrs.fr/contacts.html" target="_blank">Contacts</a> – <a href="#" id="localConnect">Connexion locale</a>			</p>
+		</footer>
+	</body>
+</html>
