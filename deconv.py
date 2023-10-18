@@ -18,6 +18,120 @@ from deepinv.utils.parameters import get_ProxPnP_params, get_GSPnP_params, get_D
 from deepinv.utils.demo import load_dataset, load_degradation
 import cv2
 import numpy as np
+from deepinv.optim.optim_iterators.optim_iterator import OptimIterator, fStep, gStep
+
+class ISTAIteration(OptimIterator):
+    r"""
+    Single iteration of ADMM.
+
+    Class for a single iteration of the Alternating Direction Method of Multipliers (ADMM) algorithm for
+    minimising :math:`\lambda f(x) + g(x)`.
+
+    If the attribute ``g_first`` is set to False (by default),
+    the iteration is (`see this paper <https://www.nowpublishers.com/article/Details/MAL-016>`_):
+
+    .. math::
+        \begin{equation*}
+        \begin{aligned}
+        u_{k+1} &= \operatorname{prox}_{\gamma \lambda f}(x_k - z_k) \\
+        x_{k+1} &= \operatorname{prox}_{\gamma g}(u_{k+1} + z_k) \\
+        z_{k+1} &= z_k + \beta (u_{k+1} - x_{k+1})
+        \end{aligned}
+        \end{equation*}
+
+    where :math:`\gamma>0` is a stepsize and :math:`\beta>0` is a relaxation parameter.
+
+    If the attribute ``g_first`` is set to ``True``, the functions :math:`f` and :math:`g` are
+    inverted in the previous iteration.
+
+    """
+
+    def __init__(self, **kwargs):
+        super(ISTAIteration, self).__init__(**kwargs)
+        self.g_step = gStepISTA(**kwargs)
+        self.f_step = fStepISTA(**kwargs)
+        self.requires_prox_g = True
+
+    def forward(self, X, cur_data_fidelity, cur_prior, cur_params, y, physics):
+        r"""
+        Single iteration of the ADMM algorithm.
+
+        :param dict X: Dictionary containing the current iterate and the estimated cost.
+        :param deepinv.optim.DataFidelity cur_data_fidelity: Instance of the DataFidelity class defining the current data_fidelity.
+        :param deepinv.optim.prior cur_prior: Instance of the Prior class defining the current prior.
+        :param dict cur_params: Dictionary containing the current parameters of the algorithm.
+        :param torch.Tensor y: Input data.
+        :param deepinv.physics physics: Instance of the physics modeling the observation.
+        :return: Dictionary `{"est": (x, z), "cost": F}` containing the updated current iterate and the estimated current cost.
+        """
+                # Back up variables for stopping criterion
+        xPrev = np.copy(self.x)
+
+        # PGM updates
+        self.x = self.s - self.stepSize * self.f_step(self.s)
+        self.x = self.g_step(self.x)
+        qNext = 0.5 * (1 + np.sqrt(1 + 4 * self.q ** 2))
+        self.s = self.x + ((self.q - 1) / qNext) * (self.x - xPrev)
+        self.q = qNext
+
+        self.residue = np.linalg.norm(self.x - xPrev) / np.sqrt(self.numPixels)
+        x, z = X["est"]
+    
+        return {"est": (x, z), "cost":self.residue}
+
+
+class fStepISTA(fStep):
+    r"""
+    ADMM fStep module.
+    """
+
+    def __init__(self, **kwargs):
+        super(fStepISTA, self).__init__(**kwargs)
+
+    def forward(self, x, z, cur_data_fidelity, cur_params, y, physics):
+        r"""
+        Single iteration step on the data-fidelity term :math:`\lambda f`.
+
+        :param torch.Tensor x: current first variable
+        :param torch.Tensor z: current second variable
+        :param deepinv.optim.DataFidelity cur_data_fidelity: Instance of the DataFidelity class defining the current data_fidelity.
+        :param dict cur_params: Dictionary containing the current parameters of the algorithm.
+        :param torch.Tensor y: Input data.
+        :param deepinv.physics physics: Instance of the physics modeling the observation.
+        """
+        if self.g_first:
+            p = x + z
+        else:
+            p = x - z
+        return cur_data_fidelity.prox(
+            p, y, physics, cur_params["lambda"] * cur_params["stepsize"]
+        )
+
+
+class gStepISTA(gStep):
+    r"""
+    ADMM gStep module.
+    """
+
+    def __init__(self, **kwargs):
+        super(gStepISTA, self).__init__(**kwargs)
+
+    def forward(self, x, z, cur_prior, cur_params):
+        r"""
+        Single iteration step on the prior term :math:`g`.
+
+        :param torch.Tensor x: current first variable
+        :param torch.Tensor z: current second variable
+        :param deepinv.optim.prior cur_prior: Instance of the Prior class defining the current prior.
+        :param dict cur_params: Dictionary containing the current parameters of the algorithm.
+        """
+        if self.g_first:
+            p = x - z
+        else:
+            p = x + z
+        return cur_prior.prox(p, cur_params["stepsize"], cur_params["g_param"])
+
+
 
 
 def PSNR(img_path_a, img_path_b):
@@ -38,7 +152,7 @@ def difference_mean(img_path_a, img_path_b):
     img_b = img_b.astype(np.float32)
     diff = np.abs(img_a - img_b)
     diff_mean = np.mean(diff)
-    return diff_mean * 1e-2
+    return diff_mean 
 
 
 def test_pnp(iter='ADMM', BASE_DIR=Path("."), seed=0, method="DIPR", dataset_name="set3c",
@@ -109,9 +223,8 @@ def test_pnp(iter='ADMM', BASE_DIR=Path("."), seed=0, method="DIPR", dataset_nam
         iteration=iter,
         prior=prior,
         data_fidelity=data_fidelity,
-        early_stop=True,
         max_iter=parameters_dict['max_iter'],
-        verbose=True,
+        verbose=False,
         params_algo=parameters_dict,
     )
     save_folder = RESULTS_DIR / method / operation / dataset_name
@@ -132,6 +245,7 @@ def test_pnp(iter='ADMM', BASE_DIR=Path("."), seed=0, method="DIPR", dataset_nam
         verbose=True,
         wandb_vis=wandb_vis,
         plot_only_first_batch=False,
+        early_stop = True
     )
     return str(save_folder / "images/GT_0.png"), str(save_folder / "images/Recons._0.png")
 
@@ -149,45 +263,26 @@ def tot_test(methods=['ADMM']):
         'PSNR': [],
         'iter': [],
         'gt_loc': [],
-        'reconstruct_loc': []
+        'reconstruct_loc': [],
+        'combined': []
     }
     for method in methods:
-        if method == 'DRS' or method == 'PGD':
-            lamb, sigma_denoiser, stepsize, max_iter, alpha = get_ProxPnP_params(
-                algo_name=method, noise_level_img=0.03)
-            params = {
-                "lambda": lamb,
-                "g_param": sigma_denoiser,
-                "stepsize": stepsize,
-                "max_iter": max_iter,
-                "alpha": alpha
-            }
-
-        elif method == 'DIPR':
-            lamb, sigma_denoiser, stepsize, max_iter = get_DPIR_params(
-                noise_level_img=0.03)
-            params = {
-                "lambda": lamb,
-                "g_param": sigma_denoiser,
-                "stepsize": stepsize,
-                "max_iter": max_iter,
-            }
-
-        else:
-            lamb, sigma_denoiser, stepsize, max_iter = get_GSPnP_params(
-                problem="deblur", noise_level_img=0.03, k_index=0)
-            params = {
-                "lambda": lamb,
-                "g_param": sigma_denoiser,
-                "stepsize": stepsize,
-                "max_iter": max_iter,
-            }
-
+        lamb, sigma_denoiser, stepsize, max_iter, alpha = get_ProxPnP_params(
+            algo_name='DRS', noise_level_img=0.03)
+        params = {
+            "lambda": lamb,
+            "g_param": sigma_denoiser,
+            "stepsize": stepsize,
+            "max_iter": max_iter,
+            "alpha": alpha
+        }
         metric, iter, gt_loc, reconstruct_loc = test_wrapper(method, params)
+        metric = metric.astype(np.str_)
         struct['method'].append(method)
-        struct['PSNR'].append(metric)
+        struct['PSNR'].append(str(metric + "dB"))
         struct['iter'].append(iter)
         struct['gt_loc'].append(gt_loc)
+        struct['combined'].append(method + " - " + metric + "dB")
         struct['reconstruct_loc'].append(reconstruct_loc)
     struct['matrix'] = difference_matrix(struct)
     return struct
@@ -206,15 +301,19 @@ def difference_matrix(struct):
 def labels(diff_matrix, struct):
     # make a table where struct are x and y labels
     df = pd.DataFrame(
-        diff_matrix, columns=struct['method'], index=struct['method'])
+        diff_matrix, columns=struct['method'] , index=struct['combined'])
     # df = df.iloc[0]
     return df
 
 
 if __name__ == "__main__":
-    methods = ['ADMM', 'PGD', 'DRS']
+    methods = ['ADMM', 'PGD', 'DRS', 'HQS']
+
+    # methods = ['ADMM']
     struct = tot_test(methods)
     print(struct['matrix'])
+    struct['matrix'].to_csv('matrix.csv')
+    struct['matrix'].to_html('matrix.html')
 
 
 # def find_variable_correlation(methods):
