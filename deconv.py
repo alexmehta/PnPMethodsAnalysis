@@ -276,6 +276,7 @@ def tot_test(methods=['ADMM']):
             "max_iter": max_iter,
             "alpha": alpha
         }
+        print(params)
         metric, iter, gt_loc, reconstruct_loc = test_wrapper(method, params)
         metric = metric.astype(np.str_)
         struct['method'].append(method)
@@ -293,7 +294,7 @@ def difference_matrix(struct):
     diff_matrix = np.zeros((len(struct['method']), len(struct['method'])))
     for i in range(len(struct['method'])):
         for j in range(len(struct['method'])):
-            diff_matrix[i][j] = difference_mean(
+            diff_matrix[i][j] = PSNR(
                 struct['reconstruct_loc'][i], struct['reconstruct_loc'][j])
     return labels(diff_matrix, struct)
 
